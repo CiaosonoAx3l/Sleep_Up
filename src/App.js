@@ -2,7 +2,7 @@
 //import './App.css';
 import { useState } from 'react';
 import DataLoader from './components/DataLoader';
-import { analyzeSleep } from './utils/analyzeSleep';
+import { analyzeSleep } from './utils/CalculateScore';
 
 
 function App() 
