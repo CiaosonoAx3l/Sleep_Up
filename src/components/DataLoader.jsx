@@ -11,7 +11,7 @@ export default function DataLoader({ filename, onData }) //il componente prende 
         loadSleepCsv(filename) //funzione esterna per caricare il csv
         .then(data =>      //solo se viene restituito resolve da loadSleepCsv
         {
-            onData(data);           //passa i dati a App.js
+            onData(data);           //passa i dati a App.js (a handleData(data))
             setLoading(false);
         })
         .catch(err =>      //in caso di reject da loadSleepCsv

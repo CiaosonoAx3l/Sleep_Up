@@ -5,20 +5,16 @@ import DataLoader from './components/DataLoader';
 
 function App() 
 {
-
-  const [analysis, setAnalysis] = useState(null);
-
-  function handleData(data) 
+  function handleData(data) //funzione callback
   {
-    setAnalysis(analyzeSleep(data));
+
   }
 
-  return 
-  (
+  return (
     <div className="App_page">
       <h1 className="Title">Sleep Up</h1>
 
-      <DataLoader filename="4-sleep_data_2025-02-11.csv" onData={ (handleData)  => console.log(dati)} />
+      <DataLoader filename="4-sleep_data_2025-02-11.csv" onData={handleData} />
     </div>
   );
 }
