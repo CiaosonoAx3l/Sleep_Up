@@ -65,5 +65,4 @@ Questa è un'app React per la visualizzazione dei dati del sonno presi da un fil
 
 
 Sviluppato da:
-Mercede Alessandro                                                    :)
-De Togni Sofia                                                        :(
+Mercede Alessandro & De Togni Sofia                                                        
