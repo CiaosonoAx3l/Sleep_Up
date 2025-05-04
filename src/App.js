@@ -1,5 +1,3 @@
-//import logo from './logo.svg';
-//import './App.css';
 import { useState } from 'react';
 import DataLoader from './components/DataLoader';
 import { analyzeSleep } from './utils/CalculateScore';
@@ -9,16 +7,17 @@ import SleepChartPie from './components/SleepChartPie';
 import SleepChartTimeline from './components/SleepChartTimeline';
 import SleepTrends from './components/SleepTrends';
 
-
-function App() 
-{
+function App() {
   const [analysis, setAnalysis] = useState(null);
   const [records, setRecords] = useState([]);
 
-  function handleData(data) //funzione callback
-  {
+  function handleData(data) {
+    console.log("Dati ricevuti:", data); // Log dei dati ricevuti
     setRecords(data);
-    setAnalysis(analyzeSleep(data));
+
+    const analysisResult = analyzeSleep(data);
+    console.log("Analisi dei dati:", analysisResult); // Log dell'analisi
+    setAnalysis(analysisResult);
   }
 
   return (
@@ -29,7 +28,6 @@ function App()
       {analysis && (
         <div className="analysis-card">
           <SleepScoreCard analysis={analysis} />
-
           <Tips analysis={analysis} />
           <SleepChartPie data={analysis} />
           <SleepChartTimeline data={analysis.rawData} />
