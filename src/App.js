@@ -5,6 +5,7 @@ import DataLoader from './components/DataLoader';
 import { analyzeSleep } from './utils/CalculateScore';
 import SleepScoreCard from './components/SleepScoreCard';
 import Tips from './components/Tips';
+import SleepChartPie from './components/SleepChartPie';
 
 
 function App() 
@@ -26,6 +27,7 @@ function App()
           <SleepScoreCard analysis={analysis} />
 
           <Tips analysis={analysis} />
+          <SleepChartPie data={analysis} />
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { loadSleepCsv } from '../utils/parseCsv'; //importo da ../utils/parseCsv.js la funzione per convertire il csv in oggetti
+import { loadSleepCsv } from '../utils/ParseCsv'; //importo da ../utils/ParseCsv.js la funzione per convertire il csv in oggetti
 
 export default function DataLoader({ filename, onData }) //il componente prende il nome del file da caricare e una funzione callback 
 {
