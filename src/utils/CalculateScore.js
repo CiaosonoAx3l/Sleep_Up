@@ -35,7 +35,8 @@ export function analyzeSleep(records)
       totalMin,
       hours,
       score,
-      interpretation
+      interpretation,
+      rawData: records
     };
   }
   

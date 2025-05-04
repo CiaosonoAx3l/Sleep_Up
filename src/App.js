@@ -6,6 +6,7 @@ import { analyzeSleep } from './utils/CalculateScore';
 import SleepScoreCard from './components/SleepScoreCard';
 import Tips from './components/Tips';
 import SleepChartPie from './components/SleepChartPie';
+import SleepChartTimeline from './components/SleepChartTimeline';
 
 
 function App() 
@@ -28,6 +29,7 @@ function App()
 
           <Tips analysis={analysis} />
           <SleepChartPie data={analysis} />
+          <SleepChartTimeline data={analysis.rawData} />
         </div>
       )}
     </div>
