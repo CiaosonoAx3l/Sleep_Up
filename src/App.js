@@ -7,14 +7,17 @@ import SleepScoreCard from './components/SleepScoreCard';
 import Tips from './components/Tips';
 import SleepChartPie from './components/SleepChartPie';
 import SleepChartTimeline from './components/SleepChartTimeline';
+import SleepTrends from './components/SleepTrends';
 
 
 function App() 
 {
   const [analysis, setAnalysis] = useState(null);
+  const [records, setRecords] = useState([]);
 
   function handleData(data) //funzione callback
   {
+    setRecords(data);
     setAnalysis(analyzeSleep(data));
   }
 
@@ -30,6 +33,7 @@ function App()
           <Tips analysis={analysis} />
           <SleepChartPie data={analysis} />
           <SleepChartTimeline data={analysis.rawData} />
+          <SleepTrends records={records} />
         </div>
       )}
     </div>
