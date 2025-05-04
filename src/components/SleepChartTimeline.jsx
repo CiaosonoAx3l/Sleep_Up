@@ -16,7 +16,7 @@ function SleepChartTimeline({ data })  //riceve in input la lista di timestamps 
   
   const chartData = data.map((d) => (     // Trasforma i dati: timestamp e stage → timestamp e valore numerico
   {
-    time: new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    time: new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' , hour12: false}),
     stageValue: sleepStageMap[d.stage] ?? 4, // default a 4 se non riconosciuto cosi' da non modificare il grafico
   }));
 
@@ -38,7 +38,7 @@ function SleepChartTimeline({ data })  //riceve in input la lista di timestamps 
           formatter={(value) => stageLabels[value]} //numero in etichetta 
           labelFormatter={(label) => `Orario: ${label}`} //formato di orario: h:m
         />
-        <Line type="monotone" dataKey="stageValue" stroke="#8884d8" dot={true} /> {/* linea principale: morbida, colore viola e pallini visibili */}
+        <Line type="monotone" dataKey="stageValue" stroke="#8884d8" dot={true} strokeWidth={4}/> {/* linea principale: spessa, morbida, colore viola e pallini visibili */}
       </LineChart>
     </div>
   );

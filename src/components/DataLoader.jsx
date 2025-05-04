@@ -24,5 +24,5 @@ export default function DataLoader({ filename, onData }) //il componente prende 
 
   if (loading) return <p>Caricamento dati...</p>;
   if (error)   return <p className="errore">{error}</p>;
-  return <p>CSV caricato correttamente</p>;
+  return null;
 }
