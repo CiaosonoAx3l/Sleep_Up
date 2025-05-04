@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import DataLoader from './components/DataLoader';
 import { analyzeSleep } from './utils/CalculateScore';
+import SleepScoreCard from './components/SleepScoreCard';
 
 
 function App() 
@@ -21,18 +22,7 @@ function App()
 
       {analysis && (
         <div className="analysis-card">
-          <h2>Risultati Analisi</h2>
-          <p><strong>Punteggio:</strong> {analysis.score}/100</p>
-          <p><strong>Interpretazione:</strong> {analysis.interpretation}</p>
-          <p><strong>Ore totali dormite:</strong> {analysis.hours.toFixed(2)} h</p>
-          <ul>
-            <li>Light: {analysis.minuteCounts.Light} min</li>
-            <li>Deep: {analysis.minuteCounts.Deep} min</li>
-            <li>REM: {analysis.minuteCounts.REM} min</li>
-            <li>Awake: {analysis.minuteCounts.Awake} min</li>
-            <li>Unknown: {analysis.minuteCounts.unknown} min</li>
-
-          </ul>
+          <SleepScoreCard analysis={analysis} />
         </div>
       )}
     </div>
