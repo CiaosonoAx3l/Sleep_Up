@@ -4,6 +4,7 @@ import { useState } from 'react';
 import DataLoader from './components/DataLoader';
 import { analyzeSleep } from './utils/CalculateScore';
 import SleepScoreCard from './components/SleepScoreCard';
+import Tips from './components/Tips';
 
 
 function App() 
@@ -23,6 +24,8 @@ function App()
       {analysis && (
         <div className="analysis-card">
           <SleepScoreCard analysis={analysis} />
+
+          <Tips analysis={analysis} />
         </div>
       )}
     </div>
