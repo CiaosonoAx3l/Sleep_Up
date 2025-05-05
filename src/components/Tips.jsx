@@ -2,10 +2,10 @@
 export default function Tips({ analysis }) 
 {
   const tips = [];
-  if (analysis.hours < 7) tips.push('Cerca di dormire almeno 7–8 ore.'); //se ha meno di 7 ore aggiunge un consiglio per dormmire di piu'
+  if (analysis.hours < 7) tips.push('Cerca di dormire almeno 7–8 ore!'); //se ha meno di 7 ore aggiunge un consiglio per dormmire di piu'
   if (analysis.minuteCounts.Awake > 30) tips.push('Riduci le interruzioni notturne (es. rumore, stress, luci).'); // genera un consiglio se rimani sveglio piu' di un tot. 
   if ((analysis.minuteCounts.Deep + analysis.minuteCounts.REM) / analysis.totalMin < 0.25) 
-    tips.push('non studiare di notte, evita caffeina e la luce blu prima di dormire.'); // genera un consiglio se le fasi profonde sono meno del 25% 
+    tips.push('Non studiare di notte, evita caffeina e la luce blu prima di dormire.'); // genera un consiglio se le fasi profonde sono meno del 25% 
 
   return (
     <div className="Tips">

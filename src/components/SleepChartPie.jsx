@@ -15,8 +15,9 @@ export default function SleepChartPie({ data })
 
   return (
     <div className="PieCharts">
+      <hr className="separator_linePC" />
       <h2 className="PieCharts_title">Fasi del sonno</h2>
-      <PieChart width={600} height={500}>
+      <PieChart width={660} height={500}>
         {/* Componente Pie che genera la torta */}
         <Pie
           data={chartData}  //dati da visualizzare nel grafico

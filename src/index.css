@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+.date_picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .PieCharts {
   display: flex;
   flex-direction: column;
@@ -20,29 +28,26 @@ code {
   justify-content: right;
   text-align: center;
   min-height: 100vh;
-  padding-left: 3%;
+  padding-left: 1%;
+  
 }
 
-/*.PieCharts_title{
-padding: 20px;
-padding-left: 200px;
-}
-*/
 .SleepCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  color: #3f387a;
     border: 2px solid #3a2c2c00; /* spessore, tipo e colore */
     margin: 2rem auto; 
     width: 300px;
     height: 300px;
     border-radius: 50%;     /*cerchio*/
-    background-color: #444c976e;
+    background-color: #dddbe7;
       opacity: 0;
       transform: translateY(-20px);
-      animation: fadeSlideDown 1s ease-out forwards;
+      animation: fadeSlideDown 2s ease-out forwards;
   }
   
 
@@ -61,17 +66,17 @@ padding-left: 200px;
   align-items: left;
   justify-content: right;
   text-align: left;
+  color: #3f387a;
 
   position: absolute;
-  top: 90%;
-  right: 190px;
-  background-size: 3000;
-  background-color: #000000; /* Colore di sfondo opzionale */
+  top: 110%;
+  right: 160px;
+  background-color: #dddbe7; /* Colore di sfondo opzionale */
   padding: 10px;
   border-radius: 8px;
 
   width: 400px;      /* Larghezza personalizzata */
-  height: 400px;     /* Altezza personalizzata */
+  height: 300px;     /* Altezza personalizzata */
 }
 
 .Tips_title {
@@ -91,6 +96,14 @@ padding-left: 200px;
   background-image: -moz-radial-gradient(white, rgba(255, 255, 255, 0));
   margin: 1rem auto 1.5rem auto; 
   border: none;
+}
+
+.separator_linePC{
+width: 70%;           
+height: 1px;         
+background-image: -moz-radial-gradient(white, rgba(255, 255, 255, 0));
+margin: 1rem auto 1.5rem auto; 
+border: none;
 }
 
 .TimeChart {

@@ -7,6 +7,7 @@ import SleepChartPie from './components/SleepChartPie';
 import SleepChartTimeline from './components/SleepChartTimeline';
 import SleepTrendsCombined from './components/SleepTrendsCombined';
 
+
 function App() 
 {
   const [selectedDate, setSelectedDate] = useState('2025-02-11'); //data di default
@@ -40,6 +41,7 @@ function App()
   return (
     <div className="App_page">
       <h1 className="Title">Sleep Up</h1>
+      <hr className="separator_line" />
 
       <div className="date_picker">
         <label>Dati aggiornati al: </label>
