@@ -26,9 +26,9 @@ export function analyzeSleep(records)
   
     let interpretation = '';
     if (score >= 80)         interpretation = 'Ottimo!';
-    else if (score >= 60)    interpretation = 'Buona ma migliorabile';
-    else if (score >= 40)    interpretation = 'Insufficiente devi dormire meglio';
-    else                     interpretation = 'Scarsa, dovresti proprio dormire di piú';
+    else if (score >= 60)    interpretation = 'Buona, ma migliorabile';
+    else if (score >= 40)    interpretation = 'Insufficiente, devi dormire meglio!';
+    else                     interpretation = 'Scarsa, dovresti proprio dormire di piú!';
   
     return {    //restituisce un oggetto con queste variabili  ad analyzeSleep in App.js
       minuteCounts,
