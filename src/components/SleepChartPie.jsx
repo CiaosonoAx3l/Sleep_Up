@@ -15,7 +15,7 @@ export default function SleepChartPie({ data })
 
   return (
     <div className="PieCharts">
-      <h2 className="PieCharts_title">Distribuzione Fasi del Sonno</h2>
+      <h2 className="PieCharts_title">Fasi del sonno</h2>
       <PieChart width={450} height={350}>
         {/* Componente Pie che genera la torta */}
         <Pie

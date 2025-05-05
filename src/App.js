@@ -42,7 +42,7 @@ function App()
       <h1 className="Title">Sleep Up</h1>
 
       <div className="date_picker">
-        <label>Seleziona una data: </label>
+        <label>Dati aggiornati al: </label>
         <input
           type="date"
           value={selectedDate}
@@ -55,9 +55,9 @@ function App()
       {analysis ? (
         <div className="analysis-card">
           <SleepScoreCard analysis={analysis} />
-          <Tips analysis={analysis} />
           <SleepChartPie data={analysis} />
           <SleepChartTimeline data={analysis.rawData} />
+          <Tips analysis={analysis} />
         </div>
       ) : (
         <p style={{ marginTop: '1rem' }}>Nessun dato disponibile per questa data.</p>

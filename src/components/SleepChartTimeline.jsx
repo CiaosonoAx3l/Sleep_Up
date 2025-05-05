@@ -3,13 +3,13 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 
 const sleepStageMap = {   // mappa le fasi del sonno in valori numerici per rappresentarle sull'asse Y
   Awake: 0,
-  REM: 1,
-  Light: 2,
+  Light: 1,
+  REM: 2,
   Deep: 3,
 };
 
 
-const stageLabels = ['Awake', 'REM', 'Light', 'Deep'];    // visualizza le label invece dei numeri
+const stageLabels = ['Awake', 'Light', 'REM', 'Deep'];    // visualizza le label invece dei numeri
 
 function SleepChartTimeline({ data })  //riceve in input la lista di timestamps e stage
 {
@@ -21,8 +21,8 @@ function SleepChartTimeline({ data })  //riceve in input la lista di timestamps 
   }));
 
   return (
-    <div className="my-4">
-      <h3 className="font-semibold">Andamento delle Fasi del Sonno</h3>
+    <div className="TimeChart">
+      <h3 className="Timechart_title">Andamento del sonno</h3>
       <LineChart width={1050} height={500} data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />   {/* aggiunge una griglia per migliorare la leggibilita' dei dati */}
         <XAxis dataKey="time" label={{ value: 'Orario', position: 'insideBottomRight', offset: -5 }} /> {/* visualizza gli orari */}

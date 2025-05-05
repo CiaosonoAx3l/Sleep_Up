@@ -25,10 +25,10 @@ export function analyzeSleep(records)
     const score = Math.max(0, Math.min(100, Math.round(rawScore)));
   
     let interpretation = '';
-    if (score >= 80)         interpretation = 'Ottima qualità del sonno';
+    if (score >= 80)         interpretation = 'Ottimo!';
     else if (score >= 60)    interpretation = 'Buona ma migliorabile';
-    else if (score >= 40)    interpretation = 'Insufficiente, migliorabile';
-    else                     interpretation = 'Scarsa, serve intervento';
+    else if (score >= 40)    interpretation = 'Insufficiente devi dormire meglio';
+    else                     interpretation = 'Scarsa, dovresti proprio dormire di piú';
   
     return {    //restituisce un oggetto con queste variabili  ad analyzeSleep in App.js
       minuteCounts,

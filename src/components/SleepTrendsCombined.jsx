@@ -1,19 +1,19 @@
-// SleepTrendsCombined.jsx
-import { useState, useEffect, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { useState, useEffect, useMemo } from 'react'; //hook
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'; //libreria OBBLIGATORIA
 import formatDuration from '../utils/FormatDuration';
 import { analyzeSleep } from '../utils/CalculateScore';
 
-export default function SleepTrendsCombined({ records, selectedDate }) {
-  const [view, setView] = useState('weekly');
-  const [internalDate, setInternalDate] = useState(selectedDate || new Date());
-  const [mode, setMode] = useState('duration');
+export default function SleepTrendsCombined({ records, selectedDate }) 
+{
+  const [view, setView] = useState('weekly'); //vista settimanale o mensile
+  const [internalDate, setInternalDate] = useState(selectedDate || new Date()); //serve per il periodo di visualizzazione
+  const [mode, setMode] = useState('duration'); //decide quale dato mostrare se duration o score
 
-  useEffect(() => {
+  useEffect(() => {   //si aggiorna ogni volta che si aggiorna selectedDate
     setInternalDate(selectedDate || new Date());
   }, [selectedDate]);
 
-  const getStartOfWeek = (date) => {
+  const getStartOfWeek = (date) => { //calcola l'inizio della settimana
     const d = new Date(date);
     const day = d.getDay();
     const diff = (day + 6) % 7;
@@ -22,7 +22,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
     return d;
   };
 
-  const handlePrev = () => {
+  const handlePrev = () => {  //funzione per recuperare la settimana/mese precedente
     const newDate = new Date(internalDate);
     if (view === 'weekly') {
       newDate.setDate(newDate.getDate() - 7);
@@ -32,7 +32,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
     setInternalDate(newDate);
   };
 
-  const handleNext = () => {
+  const handleNext = () => { //funzione per recuperare la settimana/mese successiva
     const newDate = new Date(internalDate);
     if (view === 'weekly') {
       newDate.setDate(newDate.getDate() + 7);
@@ -42,10 +42,10 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
     setInternalDate(newDate);
   };
 
-  const generateChartData = useMemo(() => {
+  const generateChartData = useMemo(() => {   //calcola i 7 giorni e associa record a ciascun giorno 
     if (!records || records.length === 0) return [];
 
-    if (view === 'weekly') {
+    if (view === 'weekly') { 
       const start = getStartOfWeek(internalDate);
       const days = Array.from({ length: 7 }).map((_, i) => {
         const d = new Date(start);
@@ -54,7 +54,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
         return { date: d, records: [] };
       });
 
-      records.forEach(r => {
+      records.forEach(r => {  //assegna i record a ciascun giorno della settimana
         const ts = new Date(r.timestamp);
         days.forEach(dayObj => {
           if (
@@ -67,7 +67,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
         });
       });
 
-      return days.map(dayObj => {
+      return days.map(dayObj => {  //calcola il dato per ogni giorno (durata o punteggio)
         const analysis = analyzeSleep(dayObj.records);
         return {
           label: dayObj.date.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric' }),
@@ -80,14 +80,14 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const days = Array.from({ length: daysInMonth }).map((_, i) => ({ day: i + 1, records: [] }));
 
-      records.forEach(r => {
+      records.forEach(r => {  //assegna i record ai giorni del mese
         const ts = new Date(r.timestamp);
         if (ts.getFullYear() === year && ts.getMonth() === month) {
           days[ts.getDate() - 1].records.push(r);
         }
       });
 
-      return days.map((dayObj, index) => {
+      return days.map((dayObj, index) => {  //calcola il dato per ogni giorno del mese
         const analysis = analyzeSleep(dayObj.records);
         return {
           label: (index + 1).toString(),
@@ -114,7 +114,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
         <div className="flex items-center gap-2">
           <button onClick={handlePrev} className="text-lg px-2">←</button>
           <span>
-            {view === 'weekly'
+            {view === 'weekly'  //mostra la data attuale in formato settimanale o mensile
               ? internalDate.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'numeric' })
               : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
           </span>
@@ -134,7 +134,7 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
             offset: '15',
             dy: -50,
           }}
-          tickFormatter={mode === 'score' ? undefined : (value) => formatDuration(value)}
+          tickFormatter={mode === 'score' ? undefined : (value) => formatDuration(value)}  //formattazione della durata
         />
         <Tooltip formatter={(value) => mode === 'score' ? `${value}/100` : formatDuration(value)} />
         <Bar dataKey="value" fill="#8884d8" />
