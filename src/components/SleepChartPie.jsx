@@ -16,13 +16,14 @@ export default function SleepChartPie({ data })
   return (
     <div className="PieCharts">
       <h2 className="PieCharts_title">Fasi del sonno</h2>
-      <PieChart width={450} height={350}>
+      <PieChart width={600} height={500}>
         {/* Componente Pie che genera la torta */}
         <Pie
           data={chartData}  //dati da visualizzare nel grafico
           cx="50%"          //posizione x (orizontale) del grafico
           cy="50%"          //posizione y (verticale) del grafico a torta
-          outerRadius={100} //raggio 
+          outerRadius={200} //raggio 
+          stroke= 'none'
           label={({ name, value }) => `${name}: ${formatDuration(value)}`} //etichetta creata dal value
           dataKey="value" //chiave visualizzabile in base al valore a cui si riferisce
         >

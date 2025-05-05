@@ -99,7 +99,7 @@ export default function SleepTrendsCombined({ records, selectedDate })
 
   return (
     <div className="Trends">
-      <div className="Trends-controls flex items-center justify-between mb-4">
+      <div className="TrendsControls">
         <div>
           <div>
             <button onClick={() => setView('weekly')} className={view === 'weekly' ? 'font-bold' : ''}>Settimana</button>
@@ -111,9 +111,9 @@ export default function SleepTrendsCombined({ records, selectedDate })
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="TrendsControl">
           <button onClick={handlePrev} className="text-lg px-2">←</button>
-          <span>
+          <span className="day">
             {view === 'weekly'  //mostra la data attuale in formato settimanale o mensile
               ? internalDate.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'numeric' })
               : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
@@ -122,7 +122,7 @@ export default function SleepTrendsCombined({ records, selectedDate })
         </div>
       </div>
 
-      <BarChart margin={{ top: 10, right: 10, left: 30, bottom: 10 }} width={800} height={300} data={generateChartData}>
+      <BarChart margin={{ top: 10, right: 10, left: 35, bottom: 10 }} width={1000} height={500} data={generateChartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="label" />
         <YAxis
@@ -131,7 +131,7 @@ export default function SleepTrendsCombined({ records, selectedDate })
             value: mode === 'score' ? 'Punteggio' : 'Tempo di sonno',
             angle: -90,
             position: 'left',
-            offset: '15',
+            offset: '25',
             dy: -50,
           }}
           tickFormatter={mode === 'score' ? undefined : (value) => formatDuration(value)}  //formattazione della durata

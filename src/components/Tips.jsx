@@ -9,11 +9,11 @@ export default function Tips({ analysis })
 
   return (
     <div className="Tips">
-      <h3 className="Tips-title">Consigli</h3>
+      <h3 className="Tips_title">Consigli</h3>
       <p><strong>Risultato:</strong> {analysis.interpretation}</p>
 
       <p>Ecco qualche piccolo consiglio:</p>
-      <ul className="Tips-list">
+      <ul className="Tips_list">
         {tips.map((t,i) => <li key={i}>{t}</li>)} {/*  usa funzione map() per generare una lista di consigli */}
       </ul>
     </div>
