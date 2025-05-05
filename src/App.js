@@ -65,7 +65,7 @@ function App()
 
       {allRecords.length > 0 && (
         <>
-          <SleepTrendsCombined records={allRecords} selectedDate={selectedDateAsDate} mode="duration" />
+          <SleepTrendsCombined records={allRecords} selectedDate={new Date(selectedDateAsDate)} mode="duration" />
         </>
       )}
     </div>

@@ -6,11 +6,11 @@ import { analyzeSleep } from '../utils/CalculateScore';
 
 export default function SleepTrendsCombined({ records, selectedDate }) {
   const [view, setView] = useState('weekly');
-  const [internalDate, setInternalDate] = useState(selectedDate);
+  const [internalDate, setInternalDate] = useState(selectedDate || new Date());
   const [mode, setMode] = useState('duration');
 
   useEffect(() => {
-    setInternalDate(selectedDate);
+    setInternalDate(selectedDate || new Date());
   }, [selectedDate]);
 
   const getStartOfWeek = (date) => {
@@ -20,6 +20,26 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
     d.setDate(d.getDate() - diff);
     d.setHours(0, 0, 0, 0);
     return d;
+  };
+
+  const handlePrev = () => {
+    const newDate = new Date(internalDate);
+    if (view === 'weekly') {
+      newDate.setDate(newDate.getDate() - 7);
+    } else {
+      newDate.setMonth(newDate.getMonth() - 1);
+    }
+    setInternalDate(newDate);
+  };
+
+  const handleNext = () => {
+    const newDate = new Date(internalDate);
+    if (view === 'weekly') {
+      newDate.setDate(newDate.getDate() + 7);
+    } else {
+      newDate.setMonth(newDate.getMonth() + 1);
+    }
+    setInternalDate(newDate);
   };
 
   const generateChartData = useMemo(() => {
@@ -77,43 +97,32 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
     }
   }, [records, internalDate, view, mode]);
 
-  const prev = () => {
-    const d = new Date(internalDate);
-    if (view === 'weekly') d.setDate(d.getDate() - 7);
-    else d.setMonth(d.getMonth() - 1);
-    setInternalDate(d);
-  };
-
-  const next = () => {
-    const d = new Date(internalDate);
-    if (view === 'weekly') d.setDate(d.getDate() + 7);
-    else d.setMonth(d.getMonth() + 1);
-    setInternalDate(d);
-  };
-
   return (
     <div className="Trends">
       <div className="Trends-controls flex items-center justify-between mb-4">
         <div>
-          <button onClick={prev}>←</button>
-          <button onClick={next}>→</button>
+          <div>
+            <button onClick={() => setView('weekly')} className={view === 'weekly' ? 'font-bold' : ''}>Settimana</button>
+            <button onClick={() => setView('monthly')} className={view === 'monthly' ? 'font-bold' : ''}>Mese</button>
+          </div>
+          <div>
+            <button onClick={() => setMode('duration')} className={mode === 'duration' ? 'font-bold' : ''}>Durata</button>
+            <button onClick={() => setMode('score')} className={mode === 'score' ? 'font-bold' : ''}>Punteggio</button>
+          </div>
         </div>
-        <div>
-          <button onClick={() => setView('weekly')} className={view === 'weekly' ? 'font-bold' : ''}>Settimana</button>
-          <button onClick={() => setView('monthly')} className={view === 'monthly' ? 'font-bold' : ''}>Mese</button>
-        </div>
-        <div>
-          <button onClick={() => setMode('duration')} className={mode === 'duration' ? 'font-bold' : ''}>Durata</button>
-          <button onClick={() => setMode('score')} className={mode === 'score' ? 'font-bold' : ''}>Punteggio</button>
-        </div>
-        <div>
-          {view === 'weekly'
-            ? internalDate.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'numeric' })
-            : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
+
+        <div className="flex items-center gap-2">
+          <button onClick={handlePrev} className="text-lg px-2">←</button>
+          <span>
+            {view === 'weekly'
+              ? internalDate.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'numeric' })
+              : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
+          </span>
+          <button onClick={handleNext} className="text-lg px-2">→</button>
         </div>
       </div>
 
-      <BarChart width={800} height={300} data={generateChartData}>
+      <BarChart margin={{ top: 10, right: 10, left: 30, bottom: 10 }} width={800} height={300} data={generateChartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="label" />
         <YAxis
@@ -121,7 +130,9 @@ export default function SleepTrendsCombined({ records, selectedDate }) {
           label={{
             value: mode === 'score' ? 'Punteggio' : 'Tempo di sonno',
             angle: -90,
-            position: 'insideLeft'
+            position: 'left',
+            offset: '15',
+            dy: -50,
           }}
           tickFormatter={mode === 'score' ? undefined : (value) => formatDuration(value)}
         />
