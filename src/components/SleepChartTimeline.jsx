@@ -23,7 +23,7 @@ function SleepChartTimeline({ data })  //riceve in input la lista di timestamps 
   return (
     <div className="my-4">
       <h3 className="font-semibold">Andamento delle Fasi del Sonno</h3>
-      <LineChart width={600} height={350} data={chartData}>
+      <LineChart width={1050} height={500} data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />   {/* aggiunge una griglia per migliorare la leggibilita' dei dati */}
         <XAxis dataKey="time" label={{ value: 'Orario', position: 'insideBottomRight', offset: -5 }} /> {/* visualizza gli orari */}
         <YAxis

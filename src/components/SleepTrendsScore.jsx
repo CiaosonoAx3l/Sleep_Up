@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { analyzeSleep } from '../utils/CalculateScore';
 
@@ -6,6 +6,7 @@ export default function SleepTrendsScore({ records, selectedDate }) {
   const [view, setView] = useState('weekly');
   const [internalDate, setInternalDate] = useState(selectedDate);
 
+  // Aggiorna internalDate se cambia la prop selectedDate
   useEffect(() => {
     setInternalDate(selectedDate);
   }, [selectedDate]);
@@ -20,7 +21,7 @@ export default function SleepTrendsScore({ records, selectedDate }) {
   };
 
   const chartData = useMemo(() => {
-    if (!records || records.length === 0 || !internalDate) return [];
+    if (!records || records.length === 0) return [];
 
     if (view === 'weekly') {
       const start = getStartOfWeek(internalDate);
