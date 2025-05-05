@@ -1,45 +1,39 @@
-// Importa hook React e componenti del grafico
+// SleepTrendsCombined.jsx
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-// Importa la funzione che analizza i dati del sonno e calcola un punteggio
+import formatDuration from '../utils/FormatDuration';
 import { analyzeSleep } from '../utils/CalculateScore';
 
-// Componente che mostra i punteggi di qualità del sonno settimanali o mensili
-export default function SleepTrendsScore({ records, selectedDate }) {
-  // Stato per vista attuale: 'weekly' o 'monthly'
+export default function SleepTrendsCombined({ records, selectedDate }) {
   const [view, setView] = useState('weekly');
-  // Stato per la data attualmente selezionata (può cambiare con navigazione)
   const [internalDate, setInternalDate] = useState(selectedDate);
+  const [mode, setMode] = useState('duration');
 
-  // Aggiorna internalDate quando cambia selectedDate (prop esterna)
   useEffect(() => {
     setInternalDate(selectedDate);
   }, [selectedDate]);
 
-  // Ritorna il lunedì della settimana della data specificata
   const getStartOfWeek = (date) => {
     const d = new Date(date);
-    const day = d.getDay(); // giorno della settimana
-    const diff = (day + 6) % 7; // calcolo dell'offset per arrivare a lunedì
+    const day = d.getDay();
+    const diff = (day + 6) % 7;
     d.setDate(d.getDate() - diff);
-    d.setHours(0, 0, 0, 0); // azzera ore
+    d.setHours(0, 0, 0, 0);
     return d;
   };
 
-  // Calcola i dati da visualizzare nel grafico in base alla vista e alla data
-  const chartData = useMemo(() => {
+  const generateChartData = useMemo(() => {
     if (!records || records.length === 0) return [];
 
     if (view === 'weekly') {
-      // Vista settimanale: crea array di 7 giorni a partire da lunedì
       const start = getStartOfWeek(internalDate);
       const days = Array.from({ length: 7 }).map((_, i) => {
         const d = new Date(start);
         d.setDate(start.getDate() + i);
+        d.setHours(0, 0, 0, 0);
         return { date: d, records: [] };
       });
 
-      // Distribuisce i record nei rispettivi giorni della settimana
       records.forEach(r => {
         const ts = new Date(r.timestamp);
         days.forEach(dayObj => {
@@ -53,24 +47,19 @@ export default function SleepTrendsScore({ records, selectedDate }) {
         });
       });
 
-      // Calcola il punteggio per ogni giorno
       return days.map(dayObj => {
         const analysis = analyzeSleep(dayObj.records);
         return {
           label: dayObj.date.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric' }),
-          score: analysis.score || 0
+          value: mode === 'score' ? analysis.score || 0 : dayObj.records.length,
         };
       });
-
     } else {
-      // Vista mensile: crea array di giorni del mese corrente
       const year = internalDate.getFullYear();
       const month = internalDate.getMonth();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-
       const days = Array.from({ length: daysInMonth }).map((_, i) => ({ day: i + 1, records: [] }));
 
-      // Assegna ogni record al giorno corrispondente
       records.forEach(r => {
         const ts = new Date(r.timestamp);
         if (ts.getFullYear() === year && ts.getMonth() === month) {
@@ -78,18 +67,16 @@ export default function SleepTrendsScore({ records, selectedDate }) {
         }
       });
 
-      // Calcola il punteggio per ogni giorno del mese
-      return days.map(dayObj => {
+      return days.map((dayObj, index) => {
         const analysis = analyzeSleep(dayObj.records);
         return {
-          label: dayObj.day.toString(),
-          score: analysis.score || 0
+          label: (index + 1).toString(),
+          value: mode === 'score' ? analysis.score || 0 : dayObj.records.length,
         };
       });
     }
-  }, [view, internalDate, records]);
+  }, [records, internalDate, view, mode]);
 
-  // Naviga alla settimana o mese precedente
   const prev = () => {
     const d = new Date(internalDate);
     if (view === 'weekly') d.setDate(d.getDate() - 7);
@@ -97,7 +84,6 @@ export default function SleepTrendsScore({ records, selectedDate }) {
     setInternalDate(d);
   };
 
-  // Naviga alla settimana o mese successiva
   const next = () => {
     const d = new Date(internalDate);
     if (view === 'weekly') d.setDate(d.getDate() + 7);
@@ -107,7 +93,6 @@ export default function SleepTrendsScore({ records, selectedDate }) {
 
   return (
     <div className="Trends">
-      {/* Controlli per cambiare periodo e vista */}
       <div className="Trends-controls flex items-center justify-between mb-4">
         <div>
           <button onClick={prev}>←</button>
@@ -118,21 +103,30 @@ export default function SleepTrendsScore({ records, selectedDate }) {
           <button onClick={() => setView('monthly')} className={view === 'monthly' ? 'font-bold' : ''}>Mese</button>
         </div>
         <div>
-          {/* Mostra data corrente in formato leggibile a seconda della vista */}
+          <button onClick={() => setMode('duration')} className={mode === 'duration' ? 'font-bold' : ''}>Durata</button>
+          <button onClick={() => setMode('score')} className={mode === 'score' ? 'font-bold' : ''}>Punteggio</button>
+        </div>
+        <div>
           {view === 'weekly'
             ? internalDate.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'numeric' })
-            : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })
-          }
+            : internalDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
         </div>
       </div>
 
-      {/* Grafico a barre che mostra i punteggi del sonno */}
-      <BarChart width={800} height={300} data={chartData} className="Trends-chart">
+      <BarChart width={800} height={300} data={generateChartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="label" />
-        <YAxis domain={[0, 100]} label={{ value: 'Punteggio', angle: -90, position: 'insideLeft' }} />
-        <Tooltip formatter={(value) => `${value}/100`} />
-        <Bar dataKey="score" fill="#8884d8" />
+        <YAxis
+          domain={mode === 'score' ? [0, 100] : undefined}
+          label={{
+            value: mode === 'score' ? 'Punteggio' : 'Tempo di sonno',
+            angle: -90,
+            position: 'insideLeft'
+          }}
+          tickFormatter={mode === 'score' ? undefined : (value) => formatDuration(value)}
+        />
+        <Tooltip formatter={(value) => mode === 'score' ? `${value}/100` : formatDuration(value)} />
+        <Bar dataKey="value" fill="#8884d8" />
       </BarChart>
     </div>
   );

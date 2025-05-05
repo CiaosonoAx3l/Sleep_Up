@@ -5,9 +5,7 @@ import SleepScoreCard from './components/SleepScoreCard';
 import Tips from './components/Tips';                     //questi sono tutti i componenti per far funzionare correttamente la nostra app
 import SleepChartPie from './components/SleepChartPie';
 import SleepChartTimeline from './components/SleepChartTimeline';
-import SleepTrends from './components/SleepTrends';
-import SleepTrendsScore from './components/SleepTrendsScore';
-
+import SleepTrendsCombined from './components/SleepTrendsCombined';
 
 function App() 
 {
@@ -37,6 +35,8 @@ function App()
     );
   };
 
+  const selectedDateAsDate = new Date(selectedDate); //conversione per evitare errori
+
   return (
     <div className="App_page">
       <h1 className="Title">Sleep Up</h1>
@@ -63,13 +63,11 @@ function App()
         <p style={{ marginTop: '1rem' }}>Nessun dato disponibile per questa data.</p>
       )}
 
-{allRecords.length > 0 && (
-  <>
-    <SleepTrends records={allRecords} selectedDate={new Date(selectedDate)} />    {/* sarebbe meglio passare un array di date così si può tirare giù tutte le date */}
-    <SleepTrendsScore records={allRecords} selectedDate={new Date(selectedDate)} />
-  </>
-)}
-
+      {allRecords.length > 0 && (
+        <>
+          <SleepTrendsCombined records={allRecords} selectedDate={selectedDateAsDate} mode="duration" />
+        </>
+      )}
     </div>
   );
 }
