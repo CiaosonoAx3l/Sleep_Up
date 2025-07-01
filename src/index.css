@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- 
+
   background: linear-gradient(
     135deg,
     rgba(16, 20, 44, 0.8),
@@ -14,9 +14,8 @@
   backdrop-filter: blur(8px);
   color: #e0e6f0;
   border-radius: 16px;
-  position: relative; /* facoltativo, utile per onde o decorazioni */
+  position: relative;
 }
-
 
 .login-box {
   background: linear-gradient(
@@ -26,23 +25,25 @@
   );
   border: 2px solid #42a5f5;
   border-radius: 16px;
-  box-shadow: 0 0 10px #42a5f5;
+  box-shadow: 0 0 15px #42a5f5;
   color: #b3f6ff;
   font-weight: 700;
-  padding: 2rem;
+  padding: 3rem;                /* aumentato */
   width: 100%;
-  max-width: 900px;
-  min-height: 400px;
+  max-width: 600px;             /* più largo per desktop */
+  min-height: 500px;            /* più alto */
   display: flex;
   flex-direction: column;
   justify-content: center;
   transform: translateY(-2px);
   transition: background 0.5s ease;
+  font-size: 1.2rem;            /* testo leggermente più grande */
 }
+
 
 /* Titolo login */
 .login {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 2rem;
   text-shadow: 0 0 10px #42a5f5;
@@ -56,8 +57,9 @@
   border: 2px solid #42a5f5;
   color: #b3f6ff;
   font-weight: 500;
+  font-size: large;
   font-family: 'Inter', sans-serif;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
   width: 100%;
@@ -78,7 +80,8 @@
   border: none;
   color: white;
   font-weight: 700;
-  padding: 0.75rem 1.5rem;
+  font-size: large;
+  padding: 1rem 1.5rem;
   border-radius: 14px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(59, 130, 246, 0.5);
@@ -101,6 +104,7 @@
   text-decoration: underline;
   cursor: pointer;
   font-weight: 500;
+  font-size: large;
   transition: color 0.3s ease;
   margin-top: 0.5 rem;
   display: block;
@@ -183,9 +187,9 @@ body {
   overflow: auto;
   background: linear-gradient(
     315deg,
-    rgb(52, 87, 184) 3%,
-    rgb(23, 10, 94) 38%,
-    rgb(38, 52, 126) 68%,
+    rgb(51, 152, 177) 3%,
+    rgb(34, 16, 136) 38%,
+    rgb(71, 82, 136) 68%,
     rgb(103, 40, 139) 98%
   );
   animation: gradient 15s ease infinite;
@@ -486,6 +490,8 @@ button.toggle-btn {
   min-width: 90px;
   text-align: center;
   margin: 0 0.5rem 0.5rem 0;
+  
+  
 }
 button.toggle-btn[aria-pressed="true"],
 button.toggle-btn:hover {
@@ -508,6 +514,7 @@ button.nav-btn {
   transition: all 0.25s ease;
   user-select: none;
   margin: 0 0.5rem 0.5rem 0;
+  
 }
 button.nav-btn:hover {
   border-color: #42a5f5;
@@ -524,4 +531,47 @@ button.nav-btn:hover {
   min-width: 180px;
   text-align: center;
   user-select: none;
+}
+
+/*  +++++++++  */
+
+/* Rendere responsive header titolo e logout */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;   /* più piccolo su mobile */
+    text-align: center;
+  }
+
+  button.logout-btn {
+    width: 100%;          /* occupa tutta la larghezza su schermi piccoli */
+    max-width: 200px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Rendere responsive la sezione Trends */
+@media (max-width: 768px) {
+  .Trends {
+    padding: 1rem;
+  }
+  .Trends h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .Trends {
+    overflow-x: auto; /* se il grafico è largo */
+  }
+}
+
+/* Eventuale supporto a max-width per app-container */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
 }
