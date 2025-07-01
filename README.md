@@ -15,9 +15,10 @@ Questa è un'app React per la visualizzazione e analisi dei dati del sonno. I da
    ~~ nella bash ~~
 
    git clone https://github.com/CiaosonoAx3l/Sleep_Up
+   
    cd nome-cartella-progetto
 
-2. **Installa le dipendenze**
+3. **Installa le dipendenze**
 
     ~~ nella bash ~~
 
@@ -28,7 +29,7 @@ Questa è un'app React per la visualizzazione e analisi dei dati del sonno. I da
     npm install cors 
     npm install sqlite3 
 
-3. **Avvio dell'app & databse**
+4. **Avvio dell'app & databse**
 
     ~~ nella bash ~~
 
