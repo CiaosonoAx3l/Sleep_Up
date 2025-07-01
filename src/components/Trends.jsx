@@ -124,7 +124,7 @@ export default function Trends({ records, initialDate }) {
   }, [records, currentDate, view, mode]);
 
   return (
-    <div className="Trends p-4 max-w-4xl mx-auto">
+    <div className="Trends">
       <div className="flex flex-wrap justify-between mb-4 gap-4 items-center">
         <div className="flex gap-2">
           <button
