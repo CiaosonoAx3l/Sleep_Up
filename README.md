@@ -58,8 +58,11 @@ Questa è un'app React per la visualizzazione e analisi dei dati del sonno. I da
 5. **dati**
 
     🗃️ Struttura della tabella sleep_records
+    {
     sql
-        CREATE TABLE sleep_records (
+    
+        CREATE TABLE sleep_records 
+        (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL,
         password TEXT NOT NULL,
@@ -67,6 +70,7 @@ Questa è un'app React per la visualizzazione e analisi dei dati del sonno. I da
         stage TEXT NOT NULL,
         date TEXT NOT NULL
         );
+    }
 
 **📄Organizzazione della struttura**
 
